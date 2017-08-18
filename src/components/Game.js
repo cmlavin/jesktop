@@ -3,7 +3,6 @@ import GameBoard from './GameBoard'
 
 const Game = (props) =>{
   console.log(props.questions)
-
     return(
       <div>
         <GameBoard gameQuestions={props.questions}/>

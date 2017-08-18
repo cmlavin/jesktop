@@ -1,12 +1,12 @@
 import React from 'react';
-import he from 'he';
+import {Grid, Segment} from 'semantic-ui-react'
 
 const GameTile = (props) => {
-
-
+  
   return(
-    <div>
-      {props.question.text}
+    <div className="five wide column" >
+      <p>{props.question}</p>
+      <p>{props.value(0, 500)}</p>
     </div>
   )
 }
