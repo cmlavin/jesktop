@@ -1,9 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
 
 const Homepage = (props) => {
   return(
     <div>
-      <button onClick={props.start}>Play</button>
+      <Link to='game'><button onClick={props.start}>Play</button></Link>
       <select id="selected">
         <option value="art">Art</option>
         <option value="animals">Animals</option>

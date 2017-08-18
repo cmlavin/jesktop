@@ -1,10 +1,12 @@
 import React from 'react';
+import GameBoard from './GameBoard'
 
 const Game = (props) =>{
   console.log(props.questions)
+
     return(
       <div>
-        <p>hello{props.questions}</p>
+        <GameBoard gameQuestions={props.questions}/>
       </div>
     )
 }

@@ -10,8 +10,7 @@ class App extends Component {
     this.state = {
       questions: [],
       tempQuestions: [],
-      category: '',
-      something: false
+      category: ''
     }
     this.startGame = this.startGame.bind(this)
   }
@@ -19,15 +18,33 @@ class App extends Component {
   startGame = () => {
     let category = document.getElementById('selected').value;
     this.fetchHandler(category);
+
+  }
+
+  encode = (string) => {
+    var encodedStr = string
+
+    var parser = new DOMParser;
+    var dom = parser.parseFromString(
+        '<!doctype html><body>' + encodedStr,
+        'text/html');
+    var decodedString = dom.body.textContent;
+    return decodedString
   }
 
   fetchHandler = (category) => {
     fetch(`http://cocktail-trivia-api.herokuapp.com/api/category/${category}`)
     .then(resp => resp.json())
+    .then(data => {
+      return data.map((question) => {
+        let q = this.encode(question.text)
+        let answer = this.encode(question.answers.filter(answers => answers.correct === true)[0].text)
+        return [q, answer]
+      })
+    })
     .then(data => this.setState({
       questions: data
     }, () => {console.log(this.state.questions)}))
-    .then(() => window.location = window.location.href + 'game')
   }
 
 
