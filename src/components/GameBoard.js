@@ -82,6 +82,7 @@ render(){
         <button onClick={this.handleSubmit}>Submit</button>
       </div>}
       <h1>Score: {this.state.score}</h1>
+      {(this.state.questions.length === this.state.prevQuestions.length && !this.state.questionInSession) && <h1>Game Over</h1>}
     </div>
   )}
 }
