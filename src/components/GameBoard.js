@@ -51,19 +51,14 @@ handleSubmit = (event) => {
 
 submitAnswer = (input, id) => {
   let answer = this.state.questions[id][1].toLowerCase()
-  debugger
-  let score = this.state.score + this.state.randVals[id]
-  if(answer === input){
-    this.setState({
-      score: score
-    })
-  } else if(answer !== input){
-
-  }
+  let correctAnswer = this.state.score + this.state.randVals[id]
+  let wrongAnswer = this.state.score - this.state.randVals[id]
+  let score = answer === input ? correctAnswer : wrongAnswer
+  this.setState({ score })
 }
 
 checkAnswer = (event) => {
-  let input = event.target.value
+  let input = event.target.value.toLowerCase()
   let correctAnswer = this.state.questions[this.state.questionIndex][1].toLowerCase()
   let div = document.getElementById(this.state.questionIndex)
   if (input === ""){
