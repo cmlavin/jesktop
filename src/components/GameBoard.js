@@ -10,7 +10,9 @@ class GameBoard extends React.Component{
       randVals: [],
       display: [],
       questionIndex: 10,
-      questionInSession: false
+      prevQuestions: [],
+      questionInSession: false,
+      score: 0
     }
     this.checkAnswer = this.checkAnswer.bind(this)
   }
@@ -41,14 +43,17 @@ generateValues(){
 }
 
 showQuestion = (event) => {
-  if(this.state.questionInSession === false){
   let id = parseInt(event.target.parentElement.id)
+  if(this.state.questionInSession === false && !this.state.prevQuestions.includes(id)){
   let disp = this.state.display
   disp[id] = this.state.questions.gameQuestions[id][0]
+  let div = document.getElementById(id)
+  div.style.background = "yellow"
   this.setState({
     display: disp,
     questionInSession: true,
-    questionIndex: id
+    questionIndex: id,
+    prevQuestions: [...this.state.prevQuestions, id]
   })}
 }
 
@@ -56,17 +61,33 @@ handleSubmit = (event) => {
   this.setState({
     questionInSession: false
   })
+  let div = document.getElementById(this.state.questionIndex)
+  div.style.background = "white"
   let input = document.getElementById('input').value.toLowerCase()
   let id = this.state.questionIndex
-  this.checkAnswer(input, id)
+  this.submitAnswer(input, id)
 }
 
-checkAnswer = (input, id) => {
+submitAnswer = (input, id) => {
   let answer = this.state.questions.gameQuestions[id][1].toLowerCase()
+  debugger
   if(answer === input){
 
-  }else if(answer !== input){
-    
+  } else if(answer !== input){
+
+  }
+}
+
+checkAnswer = (event) => {
+  let input = event.target.value
+  let correctAnswer = this.state.questions.gameQuestions[this.state.questionIndex][1].toLowerCase()
+  let div = document.getElementById(this.state.questionIndex)
+  if (input === ""){
+    div.style.color = "black"
+  }else if(correctAnswer.includes(input)){
+    div.style.color = "green"
+  }else if (!correctAnswer.includes(input)) {
+    div.style.color = "red"
   }
 }
 
@@ -78,7 +99,7 @@ render(){
       })}
       {this.state.questionInSession &&
         <div>
-         <input id="input" type="text"/>
+         <input onChange={this.checkAnswer} id="input" type="text"/>
         <button onClick={this.handleSubmit}>Submit</button>
       </div>}
     </div>

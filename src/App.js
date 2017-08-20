@@ -16,14 +16,12 @@ class App extends Component {
   }
 
   startGame = () => {
-     let category = document.getElementsByClassName('active selected item')[0].dataset.category;
+    let category = document.getElementsByClassName('active selected item')[0].dataset.category;
     this.fetchHandler(category);
-
   }
 
   encode = (string) => {
     var encodedStr = string
-
     var parser = new DOMParser;
     var dom = parser.parseFromString(
         '<!doctype html><body>' + encodedStr,
@@ -33,7 +31,6 @@ class App extends Component {
   }
 
   fetchHandler = (category) => {
-
     fetch(`http://cocktail-trivia-api.herokuapp.com/api/category/${category}`)
     .then(resp => resp.json())
     .then(data => {
@@ -48,7 +45,6 @@ class App extends Component {
     }, () => {console.log(this.state.questions)}
   ))
   }
-
 
   render() {
     return (
