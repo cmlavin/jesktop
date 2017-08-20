@@ -10,14 +10,28 @@ class App extends Component {
     this.state = {
       questions: [],
       tempQuestions: [],
+      randVals: [],
       category: ''
     }
     this.startGame = this.startGame.bind(this)
+    this.generateValues = this.generateValues.bind(this)
   }
 
   startGame = () => {
     let category = document.getElementsByClassName('active selected item')[0].dataset.category;
     this.fetchHandler(category);
+  }
+
+   getRandomIntInclusive(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive
+  }
+
+  generateValues(data){
+    let randVal = data.map((question) => this.getRandomIntInclusive(0, 500))
+    console.log(randVal)
+    return randVal
   }
 
   encode = (string) => {
@@ -40,11 +54,16 @@ class App extends Component {
         return [q, answer]
       })
     })
-    .then(data => this.setState({
-      questions: data
-    }, () => {console.log(this.state.questions)}
-  ))
+    .then(data => {
+      let vals = this.generateValues(data)
+      this.setState({
+        questions: data,
+        randVals: vals
+    })}
+    )
   }
+
+
 
   render() {
     return (
@@ -52,7 +71,7 @@ class App extends Component {
         <Router>
           <div>
             <Route exact path='/' render={() => <Homepage start={this.startGame}/>} />
-            <Route exact path='/game' render={() => <Game questions={this.state.questions}/>} />
+            <Route exact path='/game' render={() => <Game questions={this.state.questions} randomValues={this.state.randVals}/>} />
           </div>
         </Router>
       </div>
