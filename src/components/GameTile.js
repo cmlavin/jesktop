@@ -8,7 +8,6 @@ class GameTile extends React.Component{
       display: props.val,
       questionInSession: false
     }
-    this.showQuestion = this.showQuestion.bind(this)
   }
 
   showQuestion = (event) => {

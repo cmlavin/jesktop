@@ -11,8 +11,6 @@ class GameBoard extends React.Component{
       prevQuestions: [],
       score: 0
     }
-    //DO NOT DELETE THIS BIND AS IT IS NEEDED IN GAMETILE IN ORDER TO CHANGE STATE HERE NOT THERE
-    this.addToPreviousQuestions = this.addToPreviousQuestions.bind(this)
   }
 
 componentWillReceiveProps({questions, randVals}){
@@ -22,7 +20,7 @@ componentWillReceiveProps({questions, randVals}){
 addToPreviousQuestions = (id) => {
   this.setState({
     prevQuestions: [...this.state.prevQuestions, id]
-  })
+  },() => console.log(this.state.prevQuestions))
 }
 
 handleSubmit = (event) => {
