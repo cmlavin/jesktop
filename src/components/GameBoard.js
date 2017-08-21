@@ -11,6 +11,7 @@ class GameBoard extends React.Component{
       prevQuestions: [],
       score: 0
     }
+    //DO NOT DELETE THIS BIND AS IT IS NEEDED IN GAMETILE IN ORDER TO CHANGE STATE HERE NOT THERE
     this.addToPreviousQuestions = this.addToPreviousQuestions.bind(this)
   }
 
@@ -58,8 +59,7 @@ showTiles = () => {
           <div className="five wide column" id="col">
           <GameTile val={val} index={index}  prevQuestions={this.state.prevQuestions} question={this.props.questions[index]} addToPreviousQuestions={this.addToPreviousQuestions} addToScore={this.addToScore}/>
           </div>
-        )
-        })
+        )})
     return(
     <div>
       {tilesToDisplay}
