@@ -10,7 +10,7 @@ class App extends Component {
     this.state = {
       questions: [],
       randVals: [],
-      category: ''
+      category: 'art'
     }
     this.startGame = this.startGame.bind(this)
     this.generateValues = this.generateValues.bind(this)
@@ -62,13 +62,22 @@ class App extends Component {
     )
   }
 
+  changeCategory = (event) => {
+    let selected = event.target.dataset.category
+    this.setState({
+      category: "/" + selected
+    })
+  }
+
+
   render() {
     return (
       <div className="App">
         <Router>
           <div>
-            <Route exact path='/' render={() => <Homepage start={this.startGame}/>} />
-            <Route exact path='/game' render={() => <Game questions={this.state.questions} randomValues={this.state.randVals}/>} />
+            <Route exact path='/' render={() => <Homepage category={this.state.category} start={this.startGame} changeCategory={this.changeCategory}/>} />
+
+            <Route exact path={this.state.category} render={() => <Game questions={this.state.questions} randomValues={this.state.randVals} />} />
           </div>
         </Router>
       </div>
