@@ -6,8 +6,6 @@ class GameBoard extends React.Component{
   constructor(){
     super()
     this.state = {
-      questions: [],
-      randVals: [],
       display: [],
       questionIndex: 10,
       prevQuestions: [],
@@ -15,20 +13,20 @@ class GameBoard extends React.Component{
       score: 0
     }
     this.checkAnswer = this.checkAnswer.bind(this)
+    this.showQuestion = this.showQuestion.bind(this)
   }
 
 componentWillReceiveProps({questions, randVals}){
-  this.setState({ questions, randVals}, () => this.setState({
-    display: this.state.randVals.slice(0)
-  }))
+  this.setState({
+    display: randVals.slice(0)
+  })
 }
 
 showQuestion = (event) => {
-  debugger
   let id = parseInt(event.target.parentElement.parentElement.parentElement.parentElement.id)
   if(this.state.questionInSession === false && !this.state.prevQuestions.includes(id)){
   let disp = this.state.display
-  disp[id] = this.state.questions[id][0]
+  disp[id] = this.props.questions[id][0]
   let div = document.getElementById(id)
   div.style.background = "yellow"
   this.setState({
@@ -51,16 +49,16 @@ handleSubmit = (event) => {
 }
 
 submitAnswer = (input, id) => {
-  let answer = this.state.questions[id][1].toLowerCase()
-  let correctAnswer = this.state.score + this.state.randVals[id]
-  let wrongAnswer = this.state.score - this.state.randVals[id]
+  let answer = this.props.questions[id][1].toLowerCase()
+  let correctAnswer = this.state.score + this.props.randVals[id]
+  let wrongAnswer = this.state.score - this.props.randVals[id]
   let score = answer === input ? correctAnswer : wrongAnswer
   this.setState({ score })
 }
 
 checkAnswer = (event) => {
   let input = event.target.value.toLowerCase()
-  let correctAnswer = this.state.questions[this.state.questionIndex][1].toLowerCase()
+  let correctAnswer = this.props.questions[this.state.questionIndex][1].toLowerCase()
   let div = document.getElementById(this.state.questionIndex)
   if (input === ""){
     div.style.color = "black"
@@ -83,7 +81,7 @@ render(){
         <button onClick={this.handleSubmit}>Submit</button>
       </div>}
       <h1>Score: {this.state.score}</h1>
-      {(this.state.questions.length === this.state.prevQuestions.length && !this.state.questionInSession) && <h1>Game Over</h1>}
+      {(this.props.questions.length === this.state.prevQuestions.length && !this.state.questionInSession) && <h1>Game Over</h1>}
     </div>
   )}
 }
