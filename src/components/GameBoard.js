@@ -13,13 +13,10 @@ class GameBoard extends React.Component{
       score: 0
     }
     this.checkAnswer = this.checkAnswer.bind(this)
-    this.showQuestion = this.showQuestion.bind(this)
   }
 
 componentWillReceiveProps({questions, randVals}){
-  this.setState({
-    display: randVals.slice(0)
-  })
+  this.setState({ display: randVals.slice(0) })
 }
 
 showQuestion = (event) => {
@@ -61,29 +58,44 @@ checkAnswer = (event) => {
   let correctAnswer = this.props.questions[this.state.questionIndex][1].toLowerCase()
   let div = document.getElementById(this.state.questionIndex)
   if (input === ""){
-    div.style.color = "black"
+    div.style.background = "yellow"
   }else if(correctAnswer.includes(input)){
-    div.style.color = "green"
+    div.style.background = "green"
   }else if (!correctAnswer.includes(input)) {
-    div.style.color = "red"
+    div.style.background = "red"
   }
 }
 
 render(){
-  return(
-    <div className="ui grid">
-      {this.state.display.map((val, index) => {
-        return <GameTile display={val} index={index} showQuestion={this.showQuestion}/>
-      })}
-      {this.state.questionInSession &&
-        <div>
-         <input onChange={this.checkAnswer} id="input" type="text"/>
-        <button onClick={this.handleSubmit}>Submit</button>
-      </div>}
-      <h1>Score: {this.state.score}</h1>
-      {(this.props.questions.length === this.state.prevQuestions.length && !this.state.questionInSession) && <h1>Game Over</h1>}
+  if (this.state.display.length === 0) {
+    return (
+      <div className="ui segment" id="loading">
+          <div className="ui active dimmer">
+            <div className="ui massive text loader">Loading</div>
+        </div>
+      <p></p>
     </div>
-  )}
+    )
+  }else{
+    return(
+      <div className="ui center grid container" id="grid">
+
+        {this.state.display.map((val, index) => {
+          return <GameTile display={val} index={index} showQuestion={this.showQuestion}/>
+        })}
+
+        {this.state.questionInSession &&
+          <div>
+           <input onChange={this.checkAnswer} id="input" type="text"/>
+          <button onClick={this.handleSubmit}>Submit</button>
+        </div>}
+
+        <h1 id="score">Score: {this.state.score}</h1>
+
+        {(this.props.questions.length === this.state.prevQuestions.length && !this.state.questionInSession) && <h1>Game Over</h1>}
+
+      </div>
+    )}}
 }
 
 export default GameBoard;
