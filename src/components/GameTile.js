@@ -27,11 +27,13 @@ class GameTile extends React.Component{
     let correctAnswer = this.props.question[1].toLowerCase()
     let score = input === correctAnswer ? this.props.val : 0 - this.props.val
     this.props.addToScore(score)
+    this.setState({
+      questionInSession: false
+    })
   }
 
   render(){
     return(
-      <div className="five wide column" id="col">
           <div id={this.props.index} >
             <div className="ui card" >
               <div className="content">
@@ -43,7 +45,6 @@ class GameTile extends React.Component{
               </div>
             </div>
           </div>
-      </div>
     )
   }
 }

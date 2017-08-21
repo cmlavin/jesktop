@@ -42,7 +42,7 @@ addToScore = (val) => {
   }, () => console.log(this.state.score))
 }
 
-showtiles = () => {
+showTiles = () => {
   if(this.state.display.length === 0){
     return (
       <div className="ui segment" id="loading">
@@ -53,12 +53,16 @@ showtiles = () => {
     </div>
     )
   }else{
-    let tiles2display = this.state.display.map((val, index) => {
-        return (<GameTile val={val} index={index}  prevQuestions={this.state.prevQuestions} question={this.props.questions[index]} addToPreviousQuestions={this.addToPreviousQuestions} addToScore={this.addToScore}/>)
+    let tilesToDisplay = this.state.display.map((val, index) => {
+        return (
+          <div className="five wide column" id="col">
+          <GameTile val={val} index={index}  prevQuestions={this.state.prevQuestions} question={this.props.questions[index]} addToPreviousQuestions={this.addToPreviousQuestions} addToScore={this.addToScore}/>
+          </div>
+        )
         })
     return(
     <div>
-      {tiles2display}
+      {tilesToDisplay}
     </div>
     )
   }
@@ -68,7 +72,8 @@ showtiles = () => {
 render(){
     return(
       <div>
-        {this.showtiles()}
+        {this.showTiles()}
+        <h3>Score: {this.state.score}</h3>
       </div>
     )
   }
