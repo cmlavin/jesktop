@@ -32,12 +32,15 @@ const Homepage = (props) => {
   { "data-category": "vehicles", value:'vehicles', text: 'Vehicles'}
 ]
   return(
-    <div>
-      <Link to='game'><Button onClick={props.start}>Play</Button></Link>
-      <Select id="selected"
-        options={options}
-      />
+    <div id="homepage">
+      <div>
+        <h1 id="title">Jesktop!!</h1>
+        <h3 id="quote">Jeopardy for your Desktop.</h3>
+      </div>
 
+      <Link to='game'><Button onClick={props.start}>Play</Button></Link>
+      <Select id="selected" options={options}/>
+      <p id="creators">Made by: Catherine & DJ</p>
     </div>
   )
 }

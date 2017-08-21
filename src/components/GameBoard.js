@@ -24,7 +24,8 @@ componentWillReceiveProps({questions, randVals}){
 }
 
 showQuestion = (event) => {
-  let id = parseInt(event.target.parentElement.id)
+  debugger
+  let id = parseInt(event.target.parentElement.parentElement.parentElement.parentElement.id)
   if(this.state.questionInSession === false && !this.state.prevQuestions.includes(id)){
   let disp = this.state.display
   disp[id] = this.state.questions[id][0]
