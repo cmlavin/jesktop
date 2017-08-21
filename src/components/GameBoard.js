@@ -9,29 +9,19 @@ class GameBoard extends React.Component{
       display: [],
       questionIndex: 10,
       prevQuestions: [],
-      questionInSession: false,
       score: 0
     }
-    this.checkAnswer = this.checkAnswer.bind(this)
+    this.addToPreviousQuestions = this.addToPreviousQuestions.bind(this)
   }
 
 componentWillReceiveProps({questions, randVals}){
   this.setState({ display: randVals.slice(0) })
 }
 
-showQuestion = (event) => {
-  let id = parseInt(event.target.parentElement.parentElement.parentElement.parentElement.id)
-  if(this.state.questionInSession === false && !this.state.prevQuestions.includes(id)){
-  let disp = this.state.display
-  disp[id] = this.props.questions[id][0]
-  let div = document.getElementById(id)
-  div.style.background = "yellow"
+addToPreviousQuestions = (id) => {
   this.setState({
-    display: disp,
-    questionInSession: true,
-    questionIndex: id,
     prevQuestions: [...this.state.prevQuestions, id]
-  })}
+  })
 }
 
 handleSubmit = (event) => {
@@ -45,29 +35,15 @@ handleSubmit = (event) => {
   this.submitAnswer(input, id)
 }
 
-submitAnswer = (input, id) => {
-  let answer = this.props.questions[id][1].toLowerCase()
-  let correctAnswer = this.state.score + this.props.randVals[id]
-  let wrongAnswer = this.state.score - this.props.randVals[id]
-  let score = answer === input ? correctAnswer : wrongAnswer
-  this.setState({ score })
+
+addToScore = (val) => {
+  this.setState({
+    score: this.state.score + val
+  }, () => console.log(this.state.score))
 }
 
-checkAnswer = (event) => {
-  let input = event.target.value.toLowerCase()
-  let correctAnswer = this.props.questions[this.state.questionIndex][1].toLowerCase()
-  let div = document.getElementById(this.state.questionIndex)
-  if (input === ""){
-    div.style.background = "yellow"
-  }else if(correctAnswer.includes(input)){
-    div.style.background = "green"
-  }else if (!correctAnswer.includes(input)) {
-    div.style.background = "red"
-  }
-}
-
-render(){
-  if (this.state.display.length === 0) {
+showtiles = () => {
+  if(this.state.display.length === 0){
     return (
       <div className="ui segment" id="loading">
           <div className="ui active dimmer">
@@ -77,25 +53,25 @@ render(){
     </div>
     )
   }else{
+    let tiles2display = this.state.display.map((val, index) => {
+        return (<GameTile val={val} index={index}  prevQuestions={this.state.prevQuestions} question={this.props.questions[index]} addToPreviousQuestions={this.addToPreviousQuestions} addToScore={this.addToScore}/>)
+        })
     return(
-      <div className="ui center grid container" id="grid">
+    <div>
+      {tiles2display}
+    </div>
+    )
+  }
+}
 
-        {this.state.display.map((val, index) => {
-          return <GameTile display={val} index={index} showQuestion={this.showQuestion}/>
-        })}
 
-        {this.state.questionInSession &&
-          <div>
-           <input onChange={this.checkAnswer} id="input" type="text"/>
-          <button onClick={this.handleSubmit}>Submit</button>
-        </div>}
-
-        <h1 id="score">Score: {this.state.score}</h1>
-
-        {(this.props.questions.length === this.state.prevQuestions.length && !this.state.questionInSession) && <h1>Game Over</h1>}
-
+render(){
+    return(
+      <div>
+        {this.showtiles()}
       </div>
-    )}}
+    )
+  }
 }
 
 export default GameBoard;
