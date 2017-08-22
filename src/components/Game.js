@@ -7,9 +7,7 @@ const Game = (props) =>{
   console.log(props.questions)
     return(
       <div>
-        <Grid>
           <GameBoard questions={props.questions} randVals={props.randomValues}/>
-        </Grid>
       </div>
     )
 }

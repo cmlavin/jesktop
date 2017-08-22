@@ -9,6 +9,7 @@ class GameBoard extends React.Component{
       display: [],
       questionIndex: 10,
       prevQuestions: [],
+      otherQuestionInSession: false,
       score: 0
     }
   }
@@ -41,6 +42,12 @@ addToScore = (val) => {
   }, () => console.log(this.state.score))
 }
 
+changeOtherQuestionInSession = (bool) =>{
+  this.setState({
+    otherQuestionInSession: bool
+  })
+}
+
 showTiles = () => {
   if(this.state.display.length === 0){
     return (
@@ -55,7 +62,7 @@ showTiles = () => {
     let tilesToDisplay = this.state.display.map((val, index) => {
         return (
           <div className="four wide column">
-            <GameTile val={val} index={index}  prevQuestions={this.state.prevQuestions} question={this.props.questions[index]} addToPreviousQuestions={this.addToPreviousQuestions} addToScore={this.addToScore}/>
+            <GameTile val={val} index={index}  prevQuestions={this.state.prevQuestions} question={this.props.questions[index]} addToPreviousQuestions={this.addToPreviousQuestions} addToScore={this.addToScore} otherQuestionInSession={this.state.otherQuestionInSession} changeOtherQuestionInSession={this.changeOtherQuestionInSession}/>
           </div>
         )})
 

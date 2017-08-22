@@ -63,6 +63,7 @@
         right: 0;
         padding-right: 10px;
         font-family: 'Baloo Bhaijaan', cursive;
+        z-index: 10;
       }
 
       #grid{
@@ -86,12 +87,30 @@
       }
 
       #question{
-        height: 150px;
+        height: 300px;
+        width: 300px;
+        position: relative;
+      }
+      #inputField{
+        position: relative;
+        bottom: 0;
+        position: absolute;
+        padding-left: 50px;
+      }
 
+      #q{
+        margin-left: auto;
+        margin-right: auto;
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
       }
-      input{
-        padding-bottom: 20px;
-      }
+
+
+
+
+
+
     </style>
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
