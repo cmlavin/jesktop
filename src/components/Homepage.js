@@ -39,7 +39,7 @@ const Homepage = (props) => {
         <h3 id="quote">Jeopardy for your Desktop.</h3>
       </div>
 
-      <Link to={props.category}><Button onClick={props.start}>Play</Button></Link>
+      {props.categorySelected && <Link to={props.category}><Button onClick={props.start}>Play</Button></Link>}
       <Select id="selected" options={options} onChange={props.changeCategory}/>
       <p id="creators">Made by: Catherine & DJ</p>
     </div>

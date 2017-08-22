@@ -10,14 +10,16 @@ class App extends Component {
     this.state = {
       questions: [],
       randVals: [],
-      category: 'art'
+      category: 'a',
+      categorySelected: false
     }
     this.startGame = this.startGame.bind(this)
     this.generateValues = this.generateValues.bind(this)
   }
 
   startGame = () => {
-    let category = document.getElementsByClassName('active selected item')[0].dataset.category;
+    let category = document.getElementsByClassName('active selected item').length !== 0 ?
+      document.getElementsByClassName('active selected item')[0].dataset.category : null
     this.fetchHandler(category);
   }
 
@@ -65,7 +67,8 @@ class App extends Component {
   changeCategory = (event) => {
     let selected = event.target.dataset.category
     this.setState({
-      category: "/" + selected
+      category: "/" + selected,
+      categorySelected: true
     })
   }
 
@@ -75,8 +78,7 @@ class App extends Component {
       <div className="App">
         <Router>
           <div>
-            <Route exact path='/' render={() => <Homepage category={this.state.category} start={this.startGame} changeCategory={this.changeCategory}/>} />
-
+            <Route exact path='/' render={() => <Homepage category={this.state.category} start={this.startGame} changeCategory={this.changeCategory} categorySelected={this.state.categorySelected}/>} />
             <Route exact path={this.state.category} render={() => <Game questions={this.state.questions} randomValues={this.state.randVals} />} />
           </div>
         </Router>
