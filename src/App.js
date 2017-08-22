@@ -10,7 +10,7 @@ class App extends Component {
     this.state = {
       questions: [],
       randVals: [],
-      category: 'a',
+      category: "a",
       categorySelected: false
     }
     this.startGame = this.startGame.bind(this)

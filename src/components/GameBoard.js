@@ -1,6 +1,7 @@
 import React from 'react';
 import GameTile from './GameTile'
 import {Grid, Segment} from 'semantic-ui-react'
+import Loading from './Loading'
 
 class GameBoard extends React.Component{
   constructor(){
@@ -48,30 +49,24 @@ changeOtherQuestionInSession = (bool) =>{
   })
 }
 
+tilesToDisplay = () => {
+ return this.state.display.map((val, index) => {
+    return (
+      <div className="four wide column">
+        <GameTile val={val} index={index}  prevQuestions={this.state.prevQuestions} question={this.props.questions[index]} addToPreviousQuestions={this.addToPreviousQuestions} addToScore={this.addToScore} otherQuestionInSession={this.state.otherQuestionInSession} changeOtherQuestionInSession={this.changeOtherQuestionInSession}/>
+      </div>
+  )})
+}
+
 showTiles = () => {
   if(this.state.display.length === 0){
     return (
-      <div className="ui segment" id="loading">
-          <div className="ui active dimmer">
-            <div className="ui massive text loader">Loading</div>
-        </div>
-      <p></p>
-    </div>
+      <Loading />
     )
   }else{
-    let tilesToDisplay = this.state.display.map((val, index) => {
-        return (
-          <div className="four wide column">
-            <GameTile val={val} index={index}  prevQuestions={this.state.prevQuestions} question={this.props.questions[index]} addToPreviousQuestions={this.addToPreviousQuestions} addToScore={this.addToScore} otherQuestionInSession={this.state.otherQuestionInSession} changeOtherQuestionInSession={this.changeOtherQuestionInSession}/>
-          </div>
-        )})
-
-    let mat = [[0,1,2],
-              [3,4,5],
-              [6,7,8]]
-
+    let tilesToDisplay = this.tilesToDisplay()
+    let mat = [[0,1,2], [3,4,5], [6,7,8]]
     let tileArrangement = mat.map(arr => arr.map(num => tilesToDisplay[num]))
-
     return(
     <div className="ui grid" id="grid">
       <div className="three wide column" id="row">
@@ -91,10 +86,12 @@ showTiles = () => {
 
 render(){
     return(
+    <div>
       <div>
         {this.showTiles()}
         <h3>Score: {this.state.score}</h3>
       </div>
+    </div>
     )
   }
 }
