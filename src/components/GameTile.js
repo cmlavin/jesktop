@@ -33,8 +33,8 @@ class GameTile extends React.Component{
 
   render(){
     return(
-          <div id={this.props.index} className="tiles">
-            <h3 data-tile-id={this.props.index} onClick={this.showQuestion}>{this.state.display}</h3>
+          <div id={this.props.index}>
+            <h3 id="question" data-tile-id={this.props.index} onClick={this.showQuestion}>{this.state.display} </h3>
             {this.state.questionInSession && <div><input id={this.props.val} type="text" />
             <button onClick={this.checkAnswer}>Submit</button></div>}
           </div>

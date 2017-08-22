@@ -54,13 +54,28 @@ showTiles = () => {
   }else{
     let tilesToDisplay = this.state.display.map((val, index) => {
         return (
-          <div className="five wide column" id="col">
-          <GameTile val={val} index={index}  prevQuestions={this.state.prevQuestions} question={this.props.questions[index]} addToPreviousQuestions={this.addToPreviousQuestions} addToScore={this.addToScore}/>
+          <div className="four wide column">
+            <GameTile val={val} index={index}  prevQuestions={this.state.prevQuestions} question={this.props.questions[index]} addToPreviousQuestions={this.addToPreviousQuestions} addToScore={this.addToScore}/>
           </div>
         )})
+
+    let mat = [[0,1,2],
+              [3,4,5],
+              [6,7,8]]
+
+    let tileArrangement = mat.map(arr => arr.map(num => tilesToDisplay[num]))
+
     return(
-    <div>
-      {tilesToDisplay}
+    <div className="ui grid" id="grid">
+      <div className="three wide column" id="row">
+        {tileArrangement[0]}
+      </div>
+      <div className="three wide column" id="row">
+        {tileArrangement[1]}
+      </div>
+      <div className="three wide column" id="row">
+        {tileArrangement[2]}
+      </div>
     </div>
     )
   }

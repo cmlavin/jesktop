@@ -56,6 +56,7 @@ class App extends Component {
       })
     })
     .then(data => {
+      data.splice(-1,1)
       let vals = this.generateValues(data)
       this.setState({
         questions: data,
