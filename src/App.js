@@ -80,6 +80,7 @@ class App extends Component {
         <Router>
           <div>
             <Route exact path='/' render={() => <Homepage category={this.state.category} start={this.startGame} changeCategory={this.changeCategory} categorySelected={this.state.categorySelected}/>} />
+            
             <Route exact path={this.state.category} render={() => <Game questions={this.state.questions} randomValues={this.state.randVals} />} />
           </div>
         </Router>

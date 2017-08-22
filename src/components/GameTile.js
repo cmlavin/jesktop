@@ -54,13 +54,13 @@ class GameTile extends React.Component{
               <button onClick={this.checkAnswer}>Submit</button>
             </div>}
           </div>
+
             {this.state.questionAnswered &&
               <div>
                 <p>Correct Answer: {this.props.question[1]}</p>
                 <p>User Input: {this.state.userInput}</p>
               </div>}
             </div>
-
           </div>
     )
   }

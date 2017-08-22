@@ -16,6 +16,7 @@ const Homepage = (props) => {
       {props.categorySelected && <Link to={props.category}><Button onClick={props.start}>Play</Button></Link>}
       <Select id="selected" options={options} onChange={props.changeCategory}/>
       <p id="creators">Made by: Catherine & DJ</p>
+
     </div>
   )
 }

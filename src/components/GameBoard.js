@@ -2,6 +2,8 @@ import React from 'react';
 import GameTile from './GameTile'
 import {Grid, Segment} from 'semantic-ui-react'
 import Loading from './Loading'
+import { Link } from 'react-router-dom'
+import { Button } from 'semantic-ui-react'
 
 class GameBoard extends React.Component{
   constructor(){
@@ -25,18 +27,6 @@ addToPreviousQuestions = (id) => {
   },() => console.log(this.state.prevQuestions))
 }
 
-handleSubmit = (event) => {
-  this.setState({
-    questionInSession: false
-  })
-  let div = document.getElementById(this.state.questionIndex)
-  div.style.background = "white"
-  let input = document.getElementById('input').value.toLowerCase()
-  let id = this.state.questionIndex
-  this.submitAnswer(input, id)
-}
-
-
 addToScore = (val) => {
   this.setState({
     score: this.state.score + val
@@ -57,32 +47,48 @@ tilesToDisplay = () => {
       </div>
   )})
 }
+something = (event) => {
+  debugger
+}
+
+showGameOver = () => {
+  debugger
+  if(this.state.prevQuestions.length === this.props.questions.length && this.state.otherQuestionInSession === false){
+    return(
+      <div>
+        <h1>Game Over</h1>
+        <Link to={"/"}>
+          <Button id="game_over" onClick={this.something}>Restart? Maybe?</Button>
+        </Link>
+      </div>
+    )
+  }
+}
 
 showTiles = () => {
   if(this.state.display.length === 0){
-    return (
-      <Loading />
-    )
+    return ( <Loading /> )
   }else{
     let tilesToDisplay = this.tilesToDisplay()
     let mat = [[0,1,2], [3,4,5], [6,7,8]]
     let tileArrangement = mat.map(arr => arr.map(num => tilesToDisplay[num]))
     return(
-    <div className="ui grid" id="grid">
-      <div className="three wide column" id="row">
-        {tileArrangement[0]}
-      </div>
-      <div className="three wide column" id="row">
-        {tileArrangement[1]}
-      </div>
-      <div className="three wide column" id="row">
-        {tileArrangement[2]}
+    <div>
+      <div className="ui grid" id="grid">
+        <div className="three wide column" id="row">
+          {tileArrangement[0]}
+        </div>
+        <div className="three wide column" id="row">
+          {tileArrangement[1]}
+        </div>
+        <div className="three wide column" id="row">
+          {tileArrangement[2]}
+        </div>
       </div>
     </div>
     )
   }
 }
-
 
 render(){
     return(
@@ -91,6 +97,7 @@ render(){
         {this.showTiles()}
         <h3>Score: {this.state.score}</h3>
       </div>
+      {this.showGameOver()}
     </div>
     )
   }

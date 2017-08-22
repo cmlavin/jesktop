@@ -1,7 +1,6 @@
 import React from 'react'
 import {Grid, Segment} from 'semantic-ui-react'
 
-
 const Loading = () => {
   return(
     <div className="ui segment" id="loading">
