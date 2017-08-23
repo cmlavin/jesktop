@@ -46,12 +46,13 @@ class App extends Component {
   }
 
   fetchHandler = (category) => {
-    fetch(`http://cocktail-trivia-api.herokuapp.com/api/category/${category}`)
+    fetch(`http://localhost:3000/categories/${category}`)
     .then(resp => resp.json())
     .then(data => {
       return data.map((question) => {
-        let q = this.encode(question.text)
-        let answer = this.encode(question.answers.filter(answers => answers.correct === true)[0].text)
+        let q = this.encode(question.question)
+        let answer = this.encode(question.answer)
+        // let answer = this.encode(question.answers.filter(answers => answers.correct === true)[0].text)
         return [q, answer]
       })
     })
