@@ -14,7 +14,8 @@ class App extends Component {
       randVals: [],
       category: "a",
       categorySelected: false,
-      userLoggedIn: false
+      userLoggedIn: false,
+      userData: []
     }
     this.startGame = this.startGame.bind(this)
     this.generateValues = this.generateValues.bind(this)
@@ -78,10 +79,6 @@ class App extends Component {
     })
   }
 
-  login = (event) => {
-
-  }
-
   sign_up = (event) => {
     let inputUsername = document.getElementById('username').value
     let inputPassword = document.getElementById('password').value
@@ -120,8 +117,10 @@ class App extends Component {
   }
 
   getInfo = (jwt) =>{
-    fetch(`http://localhost:3000/api/v1/me/${jwt}`)
-    .then(resp => resp.json())
+    fetch(`http://localhost:3000/api/v1/me/`,{
+      method: "GET",
+      headers: {Authorization: `Bearer ${jwt}`}
+    }).then(resp => resp.json())
     .then(data => {
       debugger
     })
