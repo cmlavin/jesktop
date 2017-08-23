@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Homepage from './components/Homepage'
 import Game from './components/Game'
-import Login from './components/Login'
+import SignUp from './components/SignUp'
+import LogIn from './components/LogIn'
 import './App.css';
 
 class App extends Component {
@@ -78,21 +79,52 @@ class App extends Component {
   }
 
   login = (event) => {
+
+  }
+
+  sign_up = (event) => {
     let inputUsername = document.getElementById('username').value
     let inputPassword = document.getElementById('password').value
     if (inputUsername !== '' && inputPassword !== '') {
       let submit = new FormData()
-      submit.append('username', inputUsername);
+      submit.append("username", inputUsername);
       submit.append('password', inputPassword);
-      fetch('http://localhost:3001/api/v1/users', {
+      fetch('http://localhost:3000/api/v1/users', {
         method: 'POST',
         body: submit
       }).then(res => res.json())
       .then(data => {
-        debugger
+        if(data.id){console.log('Created User! Welcome to Jesktop')}
       })
     }
+  }
+
+  login = (event) => {
     debugger
+    let inputUsername = document.getElementById('lusername').value
+    let inputPassword = document.getElementById('lpassword').value
+    if (inputUsername !== '' && inputPassword !== '') {
+      let submit = new FormData()
+      submit.append("username", inputUsername);
+      submit.append('password', inputPassword);
+      fetch('http://localhost:3000/api/v1/login', {
+        method: 'POST',
+        body: submit
+      }).then(resp => resp.json())
+      .then(data => {
+        localStorage.setItem('jwt', data.jwt );
+        console.log(data.jwr);
+        this.getInfo(data.jwt);
+      })
+    }
+  }
+
+  getInfo = (jwt) =>{
+    fetch(`http://localhost:3000/api/v1/me/${jwt}`)
+    .then(resp => resp.json())
+    .then(data => {
+      debugger
+    })
   }
 
   render() {
@@ -102,7 +134,9 @@ class App extends Component {
           <div>
             <Route exact path='/' render={() => <Homepage category={this.state.category} start={this.startGame} changeCategory={this.changeCategory} categorySelected={this.state.categorySelected}/>} />
             <Route exact path={this.state.category} render={() => <Game questions={this.state.questions} randomValues={this.state.randVals} />} />
-            <Route exact path='/login' render={() => <Login login={this.login} loggedIn={this.state.userLoggedIn}/>}/>
+            <Route exact path='/sign_up' render={() => <SignUp sign_up={this.sign_up} loggedIn={this.state.userLoggedIn}/>}/>
+
+            <Route exact path='/login' render={() => <LogIn login={this.login} loggedIn={this.state.userLoggedIn}/>}/>
           </div>
         </Router>
       </div>

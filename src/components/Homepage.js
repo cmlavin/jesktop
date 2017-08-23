@@ -8,8 +8,9 @@ const Homepage = (props) => {
   return(
     <div>
     <div id="buttonContainer">
-      <Link to={"/login"}><Button id="login">Login</Button></Link>
-      <Button id="signup">Signup</Button>
+    <Link to={"/login"}><Button id="login">Login</Button></Link>
+      <Link to={"/sign_up"}><Button id="signup">Signup</Button></Link>
+
     </div>
       <div id="homepage">
         <div>
@@ -19,28 +20,9 @@ const Homepage = (props) => {
           <Select id="selected" options={options} onChange={props.changeCategory}/>
           </div>
       </div>
-
-
       <p id="creators">Made by: Catherine & DJ</p>
-
     </div>
   )
 }
 
 export default Homepage;
-
-// <Modal trigger={<Button>Basic Modal</Button>} basic size='small'>
-// <Header icon='user' content='Login' />
-//   <Modal.Content>
-//     <p>Please login</p>
-//     <form>
-//       <input type="text"/>
-//       <input type="text"/>
-//     </form>
-//   </Modal.Content>
-//   <Modal.Actions>
-//     <Button basic color='green' inverted>
-//       Login
-//     </Button>
-//   </Modal.Actions>
-//   </Modal>

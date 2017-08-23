@@ -1,13 +1,14 @@
 import React from 'react'
 
-const Login = (props) => {
+const LogIn = (props) => {
   return(
     <div>
-      <input type="text" name="Username" id="username" placeholder="Username"/>
-      <input type="text" name="Password" id="password" placeholder="Password"/>
+      <h1>Log In!</h1>
+      <input type="text" name="Username" id="lusername" placeholder="Username"/>
+      <input type="text" name="Password" id="lpassword" placeholder="Password"/>
       <button onClick={props.login}>Login</button>
     </div>
   )
 }
 
-export default Login;
+export default LogIn
