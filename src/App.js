@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Homepage from './components/Homepage'
 import Game from './components/Game'
+import Login from './components/Login'
 import './App.css';
 
 class App extends Component {
@@ -11,7 +12,8 @@ class App extends Component {
       questions: [],
       randVals: [],
       category: "a",
-      categorySelected: false
+      categorySelected: false,
+      userLoggedIn: false
     }
     this.startGame = this.startGame.bind(this)
     this.generateValues = this.generateValues.bind(this)
@@ -75,6 +77,24 @@ class App extends Component {
     })
   }
 
+  login = (event) => {
+    let inputUsername = document.getElementById('username').value
+    let inputPassword = document.getElementById('password').value
+    if (inputUsername !== '' && inputPassword !== '') {
+      let submit = new FormData()
+      submit.append('username', inputUsername);
+      submit.append('password', inputPassword);
+      fetch('http://localhost:3001/api/v1/users', {
+        method: 'POST',
+        body: submit
+      }).then(res => res.json())
+      .then(data => {
+        debugger
+      })
+    }
+    debugger
+  }
+
   render() {
     return (
       <div className="App">
@@ -82,6 +102,7 @@ class App extends Component {
           <div>
             <Route exact path='/' render={() => <Homepage category={this.state.category} start={this.startGame} changeCategory={this.changeCategory} categorySelected={this.state.categorySelected}/>} />
             <Route exact path={this.state.category} render={() => <Game questions={this.state.questions} randomValues={this.state.randVals} />} />
+            <Route exact path='/login' render={() => <Login login={this.login} loggedIn={this.state.userLoggedIn}/>}/>
           </div>
         </Router>
       </div>
