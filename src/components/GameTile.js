@@ -26,16 +26,18 @@ class GameTile extends React.Component{
 
   checkAnswer = (event) => {
     let input = document.getElementById(`${this.props.val}`).value.toLowerCase()
-    let correctAnswer = this.props.question[1].toLowerCase()
-    let score = input === correctAnswer ? this.props.val : 0 - this.props.val
-    score > 0 ? this.colorDiv("green") : this.colorDiv("red")
-    this.props.addToScore(score)
-    this.setState({
-      questionInSession: false,
-      questionAnswered: true,
-      userInput: input
-    })
-    this.props.changeOtherQuestionInSession(false)
+    if (input !== '') {
+      let correctAnswer = this.props.question[1].toLowerCase()
+      let score = input === correctAnswer ? this.props.val : 0 - this.props.val
+      score > 0 ? this.colorDiv("green") : this.colorDiv("red")
+      this.props.addToScore(score)
+      this.setState({
+        questionInSession: false,
+        questionAnswered: true,
+        userInput: input
+      })
+      this.props.changeOtherQuestionInSession(false)
+    }
   }
 
   colorDiv(val){

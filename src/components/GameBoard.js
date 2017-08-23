@@ -47,12 +47,13 @@ tilesToDisplay = () => {
       </div>
   )})
 }
+
 something = (event) => {
   debugger
 }
 
 showGameOver = () => {
-  debugger
+  //debugger
   if(this.state.prevQuestions.length === this.props.questions.length && this.state.otherQuestionInSession === false){
     return(
       <div>
