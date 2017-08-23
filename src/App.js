@@ -122,11 +122,14 @@ class App extends Component {
       headers: {Authorization: `Bearer ${jwt}`}
     }).then(resp => resp.json())
     .then(data => {
-      debugger
+      this.setState({
+        userData: data
+      })
     })
   }
 
   render() {
+    debugger
     return (
       <div className="App">
         <Router>

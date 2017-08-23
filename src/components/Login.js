@@ -6,7 +6,7 @@ const LogIn = (props) => {
       <h1>Log In!</h1>
       <input type="text" name="Username" id="lusername" placeholder="Username"/>
       <input type="text" name="Password" id="lpassword" placeholder="Password"/>
-      <button onClick={props.login}>Login</button>
+      <button onClick={props.login} type="submit">Login</button>
     </div>
   )
 }
