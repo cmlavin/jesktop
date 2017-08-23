@@ -51,6 +51,7 @@ class App extends Component {
     .then(data => {
       return data.map((question) => {
         let q = this.encode(question.question)
+        //let q = this.encode(question.text)
         let answer = this.encode(question.answer)
         // let answer = this.encode(question.answers.filter(answers => answers.correct === true)[0].text)
         return [q, answer]
