@@ -60,7 +60,6 @@ class GameTile extends React.Component{
             {this.state.questionAnswered &&
               <div>
                 <p>Correct Answer: {this.props.question[1]}</p>
-                <p>User Input: {this.state.userInput}</p>
               </div>}
             </div>
           </div>

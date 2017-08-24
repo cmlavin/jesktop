@@ -97,7 +97,6 @@ class App extends Component {
   }
 
   login = (event) => {
-    debugger
     let inputUsername = document.getElementById('lusername').value
     let inputPassword = document.getElementById('lpassword').value
     if (inputUsername !== '' && inputPassword !== '') {
@@ -129,18 +128,20 @@ class App extends Component {
   }
 
   render() {
-    debugger
     return (
       <div className="App">
         <Router>
           <div>
-            <Route exact path='/' render={() => <Homepage category={this.state.category} start={this.startGame} changeCategory={this.changeCategory} categorySelected={this.state.categorySelected}/>} />
+            <Route exact path='/' render={() => <Homepage category={this.state.category} start={this.startGame} changeCategory={this.changeCategory} categorySelected={this.state.categorySelected} userData={this.state.userData}/>} />
+
             <Route exact path={this.state.category} render={() => <Game questions={this.state.questions} randomValues={this.state.randVals} />} />
             <Route exact path='/sign_up' render={() => <SignUp sign_up={this.sign_up} loggedIn={this.state.userLoggedIn}/>}/>
 
             <Route exact path='/login' render={() => <LogIn login={this.login} loggedIn={this.state.userLoggedIn}/>}/>
           </div>
         </Router>
+
+        {this.state.userData.length > 0 && <h3 id="name">WELCOME {this.state.userData[0].username.toUpperCase()}</h3>}
       </div>
     );
   }

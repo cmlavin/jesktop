@@ -8,8 +8,14 @@ const Homepage = (props) => {
   return(
     <div>
     <div id="buttonContainer">
+    {props.userData.length === 0 && <div>
     <Link to={"/login"}><Button id="login">Login</Button></Link>
-      <Link to={"/sign_up"}><Button id="signup">Signup</Button></Link>
+    <Link to={"/sign_up"}><Button id="signup">Signup</Button></Link>
+    </div>}
+
+    {props.userData.length !== 0 && <div>
+    <Link to={"/"}><Button id="logout">Login</Button></Link>
+    </div>}
 
     </div>
       <div id="homepage">
