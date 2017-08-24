@@ -18,6 +18,7 @@ const Homepage = (props) => {
           <h3 id="quote">Jeopardy for your Desktop.</h3>
           {props.categorySelected && <Link to={props.category}><Button onClick={props.start}>Play</Button></Link>}
           <Select id="selected" options={options} onChange={props.changeCategory}/>
+          <h1></h1>
           </div>
       </div>
       <p id="creators">Made by: Catherine & DJ</p>
